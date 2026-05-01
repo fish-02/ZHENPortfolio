@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>創作者姓名 — 個人作品集</title>
+<template id="__bundler_thumbnail" data-bg-color="#050505">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#050505"/>
+    <g fill="#FFFFFF" font-family="Arial Black, sans-serif" font-weight="900">
+      <text x="100" y="360" font-size="180" letter-spacing="-4">策略</text>
+      <text x="100" y="540" font-size="180" letter-spacing="-4">創意</text>
+    </g>
+    <text x="100" y="720" font-size="180" font-family="Arial Black, sans-serif" font-weight="900" fill="#00FF88" letter-spacing="-4">執行力</text>
+    <rect x="900" y="200" width="200" height="280" fill="#161616"/>
+    <rect x="900" y="200" width="200" height="280" fill="none" stroke="#262626" stroke-width="2"/>
+    <circle cx="1080" cy="700" r="8" fill="#00FF88"/>
+  </svg>
+</template>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800;900&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap">
+<style>
+  :root{
+    --bg:#050505;
+    --fg:#ffffff;
+    --muted:#8a8a8a;
+    --line:#1a1a1a;
+    --line-2:#262626;
+    --accent:#00FF88;
+    --display:"Barlow Condensed","Noto Sans TC",sans-serif;
+    --body:"Inter","Noto Sans TC",sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--fg);font-family:var(--body);font-weight:300;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{overflow-x:hidden}
+  ::selection{background:var(--accent);color:#000}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+  img{max-width:100%;display:block}
+
+  /* ----- Layout ----- */
+  .wrap{max-width:1640px;margin:0 auto;padding:0 56px;width:100%}
+  @media (max-width:900px){.wrap{padding:0 24px}}
+
+  /* ----- Top nav ----- */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px 56px;mix-blend-mode:difference}
+  .nav .mark{font-family:var(--display);font-weight:900;letter-spacing:.02em;font-size:18px;text-transform:uppercase}
+  .nav .mark span{color:var(--accent);mix-blend-mode:normal}
+  .nav ul{list-style:none;display:flex;gap:36px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+  .nav ul a{opacity:.85;transition:opacity .2s}
+  .nav ul a:hover{opacity:1}
+  .nav .meta{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.7}
+  @media (max-width:900px){.nav{padding:18px 24px}.nav ul{display:none}}
+
+  /* ----- Section chrome ----- */
+  section{position:relative;border-top:1px solid var(--line)}
+  .section-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;padding:120px 0 64px;border-bottom:1px solid var(--line)}
+  .section-num{font-family:var(--mono);font-size:11px;letter-spacing:.32em;color:var(--accent);text-transform:uppercase}
+  .section-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-top:14px}
+  .section-title{font-family:var(--display);font-weight:900;font-size:clamp(56px,8vw,128px);line-height:.92;letter-spacing:-.01em;text-transform:uppercase;margin-top:18px}
+  .section-meta{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;text-align:right;white-space:nowrap}
+
+  /* ----- Reveal ----- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease-out,transform .8s ease-out}
+  .reveal.is-in{opacity:1;transform:translateY(0)}
+  .stagger > *{opacity:0;transform:translateY(28px);transition:opacity .8s ease-out,transform .8s ease-out}
+  .stagger.is-in > *{opacity:1;transform:translateY(0)}
+  .stagger.is-in > *:nth-child(1){transition-delay:0s}
+  .stagger.is-in > *:nth-child(2){transition-delay:.1s}
+  .stagger.is-in > *:nth-child(3){transition-delay:.2s}
+  .stagger.is-in > *:nth-child(4){transition-delay:.3s}
+  .stagger.is-in > *:nth-child(5){transition-delay:.4s}
+  .stagger.is-in > *:nth-child(6){transition-delay:.5s}
+
+  .accent{color:var(--accent)}
+
+  /* ============================================================
+     SECTION 01 — HERO
+     ============================================================ */
+  .hero{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;border-top:none;position:relative;padding-top:96px}
+  @media (max-width:1100px){.hero{grid-template-columns:1fr;padding-top:120px}}
+
+  .hero-left{padding:48px 0 64px 56px;display:flex;flex-direction:column;justify-content:space-between;gap:48px;position:relative}
+  @media (max-width:1100px){.hero-left{padding:0 24px 32px}}
+
+  .hero-tag{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;display:flex;align-items:center;gap:14px}
+  .hero-tag::before{content:"";width:32px;height:1px;background:var(--accent)}
+
+  .hero-headline{font-family:var(--display);font-weight:900;line-height:.86;letter-spacing:-.015em;text-transform:uppercase;font-size:clamp(72px,11.5vw,200px)}
+  .hero-headline .row{display:block;overflow:hidden}
+  .hero-headline .row span{display:inline-block}
+  .hero-headline .small{font-size:.55em;letter-spacing:.04em;font-weight:800;color:var(--muted)}
+  .hero-headline .x{display:inline-block;color:var(--muted);font-weight:500;font-size:.7em;transform:translateY(-.1em);margin:0 .12em}
+
+  .hero-sub{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start;max-width:640px}
+  .hero-sub .label{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--accent);text-transform:uppercase;padding-top:6px;white-space:nowrap}
+  .hero-sub p{font-size:15px;line-height:1.7;color:#dcdcdc;letter-spacing:.02em}
+  .hero-sub p strong{color:#fff;font-weight:500}
+
+  .hero-cta{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+  .btn-primary{display:inline-flex;align-items:center;gap:14px;background:var(--accent);color:#000;font-family:var(--display);font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:18px;padding:22px 32px;border-radius:0;transition:transform .2s,background .2s}
+  .btn-primary:hover{background:#fff;transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--accent)}
+  .btn-primary .arr{font-family:var(--display);font-weight:900;font-size:22px;line-height:1}
+  .btn-ghost{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;padding:18px 0;border-bottom:1px solid #fff;color:#fff;transition:color .2s,border-color .2s}
+  .btn-ghost:hover{color:var(--accent);border-color:var(--accent)}
+
+  .hero-right{position:relative;border-left:1px solid var(--line);overflow:hidden}
+  @media (max-width:1100px){.hero-right{border-left:none;border-top:1px solid var(--line);min-height:80vh}}
+
+  .hero-image{position:absolute;inset:0;overflow:hidden}
+  .hero-image .ph{position:absolute;inset:0;background:
+    repeating-linear-gradient(135deg,#0e0e0e 0 14px,#161616 14px 28px);
+    transform:scale(1.2);transform-origin:60% 40%;
+    animation:scaleIn 1.2s cubic-bezier(.2,.7,.2,1) .15s both;}
+  .hero-image .ph::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 70% 30%,rgba(0,0,0,0) 30%,rgba(0,0,0,.55) 80%)}
+  .hero-image .ph .label{position:absolute;left:24px;bottom:24px;font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:#888;text-transform:uppercase}
+  .hero-image .ph .label2{position:absolute;right:24px;top:24px;font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:#888;text-transform:uppercase;text-align:right}
+  .hero-image .ph .axis{position:absolute;font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:#666}
+  .hero-image .ph .axis.b{left:24px;top:24px}
+  .hero-image .ph .axis.r{right:24px;bottom:24px}
+
+  /* break-out caption */
+  .hero-caption{position:absolute;left:-32px;top:42%;transform:rotate(-90deg);transform-origin:left top;font-family:var(--mono);font-size:11px;letter-spacing:.32em;color:#fff;text-transform:uppercase;background:#050505;padding:8px 14px;border:1px solid var(--line-2)}
+  .hero-caption b{color:var(--accent);font-weight:500}
+
+  /* big break-out year */
+  .hero-year{position:absolute;right:24px;bottom:24px;font-family:var(--display);font-weight:900;font-size:clamp(80px,14vw,220px);line-height:.8;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.18);letter-spacing:-.02em;pointer-events:none}
+
+  /* scroll hint */
+  .scroll-hint{position:absolute;left:56px;bottom:28px;display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:11px;letter-spacing:.32em;color:#fff;text-transform:uppercase;z-index:5}
+  .scroll-hint .arrow{display:inline-block;animation:bounce 1.6s ease-in-out infinite}
+  @media (max-width:1100px){.scroll-hint{left:24px}}
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+  @keyframes scaleIn{from{transform:scale(1.2)}to{transform:scale(1)}}
+
+  /* status strip */
+  .status{position:absolute;top:96px;right:0;display:flex;gap:0;font-family:var(--mono);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);border-left:1px solid var(--line);background:#050505;z-index:4}
+  .status div{padding:14px 22px;border-right:1px solid var(--line)}
+  .status div:last-child{border-right:none}
+  .status .live::before{content:"";display:inline-block;width:6px;height:6px;background:var(--accent);border-radius:50%;margin-right:10px;vertical-align:middle;animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+  /* ============================================================
+     SECTION 02 — SERVICES
+     ============================================================ */
+  .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line)}
+  @media (max-width:1100px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:640px){.services-grid{grid-template-columns:1fr}}
+  .svc{padding:48px 36px 64px;border-right:1px solid var(--line);min-height:520px;display:flex;flex-direction:column;justify-content:space-between;position:relative;transition:background .3s}
+  .svc:last-child{border-right:none}
+  .svc:hover{background:#0c0c0c}
+  .svc:hover .svc-num{color:var(--accent)}
+  .svc-top{display:flex;justify-content:space-between;align-items:flex-start}
+  .svc-num{font-family:var(--display);font-weight:900;font-size:96px;line-height:.85;letter-spacing:-.02em;color:#1f1f1f;transition:color .3s}
+  .svc-tag{font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;writing-mode:vertical-rl;transform:rotate(180deg)}
+  .svc-title{font-family:var(--display);font-weight:800;font-size:32px;letter-spacing:.01em;line-height:1.05;margin-top:auto;text-transform:none}
+  .svc-zh{font-family:"Noto Sans TC",sans-serif;font-weight:700;font-size:26px;letter-spacing:.03em;line-height:1.2;margin-bottom:8px}
+  .svc-en{font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;margin-bottom:20px}
+  .svc-list{list-style:none;font-size:13px;line-height:1.9;color:#bdbdbd;letter-spacing:.02em}
+  .svc-list li{display:flex;gap:10px}
+  .svc-list li::before{content:"—";color:var(--muted)}
+
+  /* ============================================================
+     SECTION 03 — SELECTED WORKS
+     ============================================================ */
+  .works{border-top:1px solid var(--line)}
+  .work{display:grid;grid-template-columns:90px 1.2fr 2fr 1fr;gap:32px;align-items:stretch;padding:36px 0;border-bottom:1px solid var(--line);transition:background .3s,padding .3s;position:relative;cursor:pointer}
+  .work:hover{background:#0c0c0c;padding-left:24px;padding-right:24px}
+  .work:hover .work-arrow{color:var(--accent);transform:translateX(8px)}
+  .work:hover .work-thumb .ph{filter:none;opacity:1}
+  .work:hover .work-thumb{flex:0 0 220px}
+  .work-num{font-family:var(--display);font-weight:900;font-size:42px;color:var(--muted);letter-spacing:-.02em;line-height:1}
+  .work-meta-col{display:flex;flex-direction:column;justify-content:space-between;gap:14px}
+  .work-cat{font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--accent);text-transform:uppercase}
+  .work-role{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+  .work-title-col{display:flex;align-items:center}
+  .work-title{font-family:"Noto Sans TC",sans-serif;font-weight:700;font-size:clamp(28px,3.4vw,52px);line-height:1.05;letter-spacing:.005em}
+  .work-title em{font-style:normal;font-family:var(--display);font-weight:900;letter-spacing:.005em}
+  .work-arrow-col{display:flex;align-items:center;justify-content:flex-end;gap:18px}
+  .work-thumb{flex:0 0 0px;height:80px;overflow:hidden;border:1px solid var(--line-2);transition:flex .35s ease}
+  .work-thumb .ph{width:100%;height:100%;background:repeating-linear-gradient(45deg,#0f0f0f 0 8px,#171717 8px 16px);opacity:.55;filter:grayscale(1);transition:filter .3s,opacity .3s}
+  .work-arrow{font-family:var(--display);font-weight:900;font-size:36px;line-height:1;color:#fff;transition:transform .3s,color .3s}
+  @media (max-width:900px){
+    .work{grid-template-columns:60px 1fr;gap:16px}
+    .work-meta-col{display:none}
+    .work-arrow-col{display:none}
+  }
+
+  /* ============================================================
+     SECTION 04 — CLIENT WALL
+     ============================================================ */
+  .clients{padding:120px 0 160px;border-top:1px solid var(--line);position:relative}
+  .clients-head{font-family:var(--mono);font-size:11px;letter-spacing:.32em;color:var(--muted);text-transform:uppercase;margin-bottom:80px;display:flex;justify-content:space-between;align-items:center}
+  .clients-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:48px 24px}
+  @media (max-width:1100px){.clients-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:640px){.clients-grid{grid-template-columns:1fr}}
+  .client{display:flex;flex-direction:column;gap:14px;padding:32px 0;border-top:1px solid var(--line-2);transition:opacity .3s}
+  .client:hover{opacity:1}
+  .clients-grid:hover .client:not(:hover){opacity:.35}
+  .client-num{font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--muted)}
+  .client-name{font-family:"Noto Sans TC",sans-serif;font-weight:900;font-size:clamp(28px,2.6vw,40px);line-height:1.1;letter-spacing:.01em;color:#9a9a9a;transition:color .3s}
+  .client:hover .client-name{color:#fff}
+  .client-meta{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:#555;text-transform:uppercase}
+
+  /* ============================================================
+     SECTION 05 — TESTIMONIALS
+     ============================================================ */
+  .testimonials{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+  @media (max-width:1100px){.testimonials{grid-template-columns:1fr}}
+  .tm{padding:64px 40px 48px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:32px;position:relative;min-height:480px}
+  .tm:last-child{border-right:none}
+  @media (max-width:1100px){.tm{border-right:none;border-bottom:1px solid var(--line)}}
+  .tm-quote-mark{font-family:var(--display);font-weight:900;font-size:120px;line-height:.6;color:var(--accent);height:48px}
+  .tm-quote{font-family:"Noto Sans TC",sans-serif;font-style:italic;font-weight:300;font-size:18px;line-height:1.75;color:#e6e6e6;letter-spacing:.01em;flex:1}
+  .tm-attr{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line-2);padding-top:20px}
+  .tm-name{font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:.04em;text-transform:uppercase}
+  .tm-role{font-family:"Noto Sans TC",sans-serif;font-size:12px;color:var(--muted);letter-spacing:.04em}
+  .tm-idx{position:absolute;right:32px;top:32px;font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--muted)}
+
+  /* ============================================================
+     SECTION 06 — ABOUT
+     ============================================================ */
+  .about{padding:0 0 160px;border-top:1px solid var(--line)}
+  .about-bigtitle{font-family:"Noto Sans TC",sans-serif;font-weight:900;font-size:clamp(40px,5.6vw,84px);line-height:1.1;letter-spacing:-.005em;padding:96px 0 64px;max-width:1280px}
+  .about-grid{display:grid;grid-template-columns:1fr 2fr;gap:80px;border-top:1px solid var(--line);padding-top:64px}
+  @media (max-width:1100px){.about-grid{grid-template-columns:1fr;gap:32px}}
+  .about-aside{display:flex;flex-direction:column;gap:20px}
+  .about-aside .k{font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase}
+  .about-aside .v{font-family:"Noto Sans TC",sans-serif;font-size:14px;line-height:1.7;color:#cfcfcf}
+  .about-portrait{aspect-ratio:3/4;background:repeating-linear-gradient(135deg,#0e0e0e 0 14px,#161616 14px 28px);border:1px solid var(--line-2);position:relative;margin-top:24px}
+  .about-portrait::after{content:"";position:absolute;inset:0;background:radial-gradient(70% 50% at 50% 30%,rgba(0,0,0,0) 30%,rgba(0,0,0,.6) 80%)}
+  .about-portrait .lab{position:absolute;left:14px;bottom:14px;font-family:var(--mono);font-size:9px;letter-spacing:.28em;color:#888;text-transform:uppercase}
+  .about-body p{font-family:"Noto Sans TC",sans-serif;font-size:17px;line-height:1.95;letter-spacing:.02em;color:#dcdcdc;margin-bottom:48px;max-width:760px}
+  .about-subtitle{font-family:"Noto Sans TC",sans-serif;font-weight:900;font-size:clamp(32px,4vw,56px);line-height:1.15;letter-spacing:.005em;margin-bottom:32px;padding-top:16px;border-top:1px solid var(--line-2)}
+
+  .skills{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+  .skill{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:10px 18px;border:1px solid var(--line-2);color:#cfcfcf;transition:all .25s}
+  .skill:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* ============================================================
+     SECTION 07 — CONTACT
+     ============================================================ */
+  .contact{border-top:1px solid var(--line);position:relative;padding:120px 0 80px;background:#050505}
+  .contact-head{font-family:"Noto Sans TC",sans-serif;font-weight:900;font-size:clamp(80px,14vw,220px);line-height:.88;letter-spacing:-.015em;margin-bottom:80px}
+  .contact-head .en{font-family:var(--display);font-weight:900;color:var(--muted);font-size:.45em;letter-spacing:.04em;display:block;text-transform:uppercase;margin-bottom:18px}
+  .contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;border-top:1px solid var(--line);padding-top:64px}
+  @media (max-width:1100px){.contact-grid{grid-template-columns:1fr;gap:48px}}
+
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  @media (max-width:640px){.form-row{grid-template-columns:1fr;gap:0}}
+  .contact-form{display:flex;flex-direction:column;gap:24px}
+  .field{display:flex;flex-direction:column;gap:10px;padding:20px 22px;border:1px solid #2a2a2a;background:#0c0c0c;position:relative;transition:border-color .25s,background .25s}
+  .field:hover{border-color:#3a3a3a;background:#101010}
+  .field:focus-within{border-color:var(--accent);background:#0e0e0e;box-shadow:0 0 0 1px var(--accent) inset}
+  .field label{font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;display:flex;justify-content:space-between}
+  .field:focus-within label{color:var(--accent)}
+  .field label .req{color:var(--accent)}
+  .field input,.field textarea,.field select{background:transparent;border:none;color:#fff;font-family:"Noto Sans TC",sans-serif;font-size:18px;font-weight:300;outline:none;padding:4px 0;letter-spacing:.02em;width:100%;resize:none}
+  .field input::placeholder,.field textarea::placeholder{color:#666}
+  .field select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%);background-position:calc(100% - 14px) 18px,calc(100% - 8px) 18px;background-size:6px 6px;background-repeat:no-repeat;cursor:pointer}
+  .field select option{background:#050505;color:#fff}
+
+  .submit-row{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:48px;flex-wrap:wrap}
+  .btn-submit{display:inline-flex;align-items:center;gap:18px;background:var(--accent);color:#000;font-family:var(--display);font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:20px;padding:26px 40px;transition:all .25s;position:relative;overflow:hidden}
+  .btn-submit:hover{background:#fff;transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--accent)}
+  .btn-submit:disabled{opacity:.6;cursor:not-allowed}
+  .submit-note{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase}
+
+  .contact-aside{display:flex;flex-direction:column;gap:48px}
+  .contact-block .k{font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-bottom:14px}
+  .contact-block .v{font-family:var(--display);font-weight:800;font-size:32px;letter-spacing:.02em;text-transform:uppercase}
+  .contact-block .v a:hover{color:var(--accent)}
+  .socials{display:flex;flex-direction:column;border-top:1px solid var(--line-2)}
+  .socials a{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-bottom:1px solid var(--line-2);font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:.04em;text-transform:uppercase;transition:padding .25s,color .25s}
+  .socials a:hover{color:var(--accent);padding-left:14px}
+  .socials a span{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase}
+
+  /* footer */
+  footer{padding:48px 0 36px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.26em;color:var(--muted);text-transform:uppercase;flex-wrap:wrap;gap:14px}
+  footer .accent-dot{display:inline-block;width:6px;height:6px;background:var(--accent);border-radius:50%;margin-right:10px;vertical-align:middle}
+
+  /* toast */
+  .toast{position:fixed;left:50%;bottom:48px;transform:translateX(-50%) translateY(120%);background:var(--accent);color:#000;font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;padding:18px 28px;z-index:80;transition:transform .4s ease}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+
+  /* utility */
+  .divider{height:1px;background:var(--line);width:100%}
+  .marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;font-family:var(--display);font-weight:900;font-size:18px;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;color:var(--muted)}
+  .marquee-track{display:inline-block;animation:scroll 40s linear infinite;padding-left:100%}
+  .marquee span{margin:0 18px}
+  .marquee em{color:var(--accent);font-style:normal}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+
+</style>
+</head>
+<body>
+
+<!-- =========== NAV =========== -->
+<nav class="nav" aria-label="Primary">
+  <a href="#hero" class="mark">創作者姓名<span>.</span></a>
+  <ul>
+    <li><a href="#services">01 / Services</a></li>
+    <li><a href="#works">02 / Works</a></li>
+    <li><a href="#clients">03 / Clients</a></li>
+    <li><a href="#about">04 / About</a></li>
+    <li><a href="#contact">05 / Contact</a></li>
+  </ul>
+  <div class="meta">TPE — 2025</div>
+</nav>
+
+<!-- =========== 01 HERO =========== -->
+<section id="hero" class="hero" data-screen-label="01 Hero">
+  <div class="hero-left">
+    <div class="hero-tag reveal">Portfolio · Vol. 01 · 2025 / 2026</div>
+
+    <h1 class="hero-headline" style="line-height:.95;letter-spacing:0">
+      <span class="row reveal"><span>策略</span> <span class="x">×</span> <span>創意</span> <span class="x">×</span></span>
+      <span class="row reveal" style="transition-delay:.1s"><span class="accent">執行力</span></span>
+      <span class="row reveal small" style="transition-delay:.2s"><span>讓想法落地。</span></span>
+    </h1>
+
+    <div class="hero-sub reveal" style="transition-delay:.3s">
+      <div class="label">Discipline ↘</div>
+      <p>自由接案者 · 跨領域創作者。<strong>劇場 × 視覺 × 企劃 × 敘事</strong>——四種訓練在同一個人身上長出來，所以從零想到有、從有做到好的整個鏈條，我都能接住。</p>
+    </div>
+
+    <div class="hero-cta reveal" style="transition-delay:.4s">
+      <a href="#works" class="btn-primary">看我的作品 <span class="arr">↓</span></a>
+      <a href="#contact" class="btn-ghost">直接聯絡 →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-image">
+      <div class="ph">
+        <div class="axis b">PORTRAIT / 03:04 / GR-01</div>
+        <div class="axis r" style="left:24px;bottom:auto;top:50%">F1.4 · 1/250</div>
+        <div class="label">[ 個人形象照佔位 ]<br>EDITORIAL — MAGAZINE COVER COMPOSITION</div>
+        <div class="label2">CREATOR<br>2026 EDITION</div>
+      </div>
+      <div class="hero-year">2026</div>
+    </div>
+    <div class="hero-caption">Cover Story — <b>The Multidisciplinary Operator</b></div>
+  </div>
+
+  <div class="status">
+    <div class="live">Available · Q2 2026</div>
+    <div>Based in Taipei</div>
+    <div>EN / 中文</div>
+  </div>
+
+  <div class="scroll-hint">
+    <span class="arrow">↓</span> Scroll to Explore
+  </div>
+</section>
+
+<!-- marquee -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>劇場製作</span><span>·</span><span>視覺設計</span><span>·</span><span>活動企劃</span><span>·</span><span>攝影</span><span>·</span><span>世界觀設計</span><span>·</span><span>小說撰寫</span><span>·</span><span>文案企劃</span><span>·</span><em>// AVAILABLE FOR COLLABORATION 2026</em><span>·</span>
+    <span>劇場製作</span><span>·</span><span>視覺設計</span><span>·</span><span>活動企劃</span><span>·</span><span>攝影</span><span>·</span><span>世界觀設計</span><span>·</span><span>小說撰寫</span><span>·</span><span>文案企劃</span><span>·</span><em>// AVAILABLE FOR COLLABORATION 2026</em><span>·</span>
+  </div>
+</div>
+
+<!-- =========== 02 SERVICES =========== -->
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num reveal">§ 02 / Services</div>
+        <h2 class="section-title reveal" style="transition-delay:.1s">我提供的<span class="accent">服務</span></h2>
+      </div>
+      <div class="section-meta reveal" style="transition-delay:.2s">Discipline / 04<br>Updated · 2026.04</div>
+    </div>
+  </div>
+
+  <div class="services-grid stagger">
+    <div class="svc">
+      <div class="svc-top">
+        <div class="svc-num">01</div>
+        <div class="svc-tag">Design</div>
+      </div>
+      <div>
+        <div class="svc-zh">設計與數位</div>
+        <div class="svc-en">Design & Digital</div>
+        <ul class="svc-list">
+          <li>網頁設計</li>
+          <li>視覺設計</li>
+          <li>原型製作</li>
+          <li>資料整理</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-top">
+        <div class="svc-num">02</div>
+        <div class="svc-tag">Production</div>
+      </div>
+      <div>
+        <div class="svc-zh">企劃與執行</div>
+        <div class="svc-en">Planning & Execution</div>
+        <ul class="svc-list">
+          <li>活動策劃</li>
+          <li>現場執行管理</li>
+          <li>製作協調</li>
+          <li>行政整合</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-top">
+        <div class="svc-num">03</div>
+        <div class="svc-tag">Image</div>
+      </div>
+      <div>
+        <div class="svc-zh">攝影與影像</div>
+        <div class="svc-en">Photography & Image</div>
+        <ul class="svc-list">
+          <li>個人寫真</li>
+          <li>劇照攝影</li>
+          <li>演出紀錄</li>
+          <li>情緒敘事</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="svc">
+      <div class="svc-top">
+        <div class="svc-num">04</div>
+        <div class="svc-tag">Narrative</div>
+      </div>
+      <div>
+        <div class="svc-zh">敘事與內容</div>
+        <div class="svc-en">Narrative & Content</div>
+        <ul class="svc-list">
+          <li>世界觀設計</li>
+          <li>小說撰寫</li>
+          <li>文案企劃</li>
+          <li>故事型品牌內容</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 03 WORKS =========== -->
+<section id="works">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num reveal">§ 03 / Selected Works</div>
+        <h2 class="section-title reveal" style="transition-delay:.1s">精選<span class="accent">作品</span></h2>
+      </div>
+      <div class="section-meta reveal" style="transition-delay:.2s">2024 — 2025<br>05 Projects</div>
+    </div>
+
+    <div class="works-list">
+      <a class="work" href="#works">
+        <div class="work-num">01</div>
+        <div class="work-meta-col">
+          <div class="work-cat">Photo Book · 攝影集</div>
+          <div class="work-role">Direction / Visual / Print</div>
+        </div>
+        <div class="work-title-col">
+          <h3 class="work-title">《<em>夏日進行中</em>》<br>情緒敘事 · 視覺風格</h3>
+        </div>
+        <div class="work-arrow-col">
+          <div class="work-thumb"><div class="ph"></div></div>
+          <div class="work-arrow">↗</div>
+        </div>
+      </a>
+
+      <a class="work" href="#works">
+        <div class="work-num">02</div>
+        <div class="work-meta-col">
+          <div class="work-cat">Event · 活動策劃 / 執行</div>
+          <div class="work-role">Producer / Operations</div>
+        </div>
+        <div class="work-title-col">
+          <h3 class="work-title">《<em>手作女子聚會</em>》<br>活動策劃與執行</h3>
+        </div>
+        <div class="work-arrow-col">
+          <div class="work-thumb"><div class="ph"></div></div>
+          <div class="work-arrow">↗</div>
+        </div>
+      </a>
+
+      <a class="work" href="#works">
+        <div class="work-num">03</div>
+        <div class="work-meta-col">
+          <div class="work-cat">Internship · 榮耀基金會</div>
+          <div class="work-role">原型製作 / 資料整理</div>
+        </div>
+        <div class="work-title-col">
+          <h3 class="work-title">榮耀基金會實習生<br>臺灣音樂劇統計專案統籌</h3>
+        </div>
+        <div class="work-arrow-col">
+          <div class="work-thumb"><div class="ph"></div></div>
+          <div class="work-arrow">↗</div>
+        </div>
+      </a>
+
+      <a class="work" href="#works">
+        <div class="work-num">04</div>
+        <div class="work-meta-col">
+          <div class="work-cat">Theatre · 春河劇團</div>
+          <div class="work-role">Rehearsal Asst. / Props</div>
+        </div>
+        <div class="work-title-col">
+          <h3 class="work-title">《<em>詭哭郎嚎</em>》<br>排練助理 ＆ 小道具</h3>
+        </div>
+        <div class="work-arrow-col">
+          <div class="work-thumb"><div class="ph"></div></div>
+          <div class="work-arrow">↗</div>
+        </div>
+      </a>
+
+      <a class="work" href="#works">
+        <div class="work-num">05</div>
+        <div class="work-meta-col">
+          <div class="work-cat">Theatre · 春河劇團</div>
+          <div class="work-role">Rehearsal Asst. / Props</div>
+        </div>
+        <div class="work-title-col">
+          <h3 class="work-title">《<em>老闆，來碗陽春麵！</em>》<br>排練助理 ＆ 小道具</h3>
+        </div>
+        <div class="work-arrow-col">
+          <div class="work-thumb"><div class="ph"></div></div>
+          <div class="work-arrow">↗</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 04 CLIENTS =========== -->
+<section id="clients">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num reveal">§ 04 / Selected Collaborators</div>
+        <h2 class="section-title reveal" style="transition-delay: .1s; line-height: 1">合作<span class="accent">經歷牆</span></h2>
+      </div>
+      <div class="section-meta reveal" style="transition-delay:.2s">No Logos.<br>Just Trust.</div>
+    </div>
+
+    <div class="clients">
+      <div class="clients-head">
+        <span>// Text-based client wall · grayscale, no logos</span>
+        <span>04 ↦ Trusted by</span>
+      </div>
+      <div class="clients-grid">
+        <div class="client">
+          <div class="client-num">01 ─ Theatre Festival</div>
+          <div class="client-name">臺北藝穗節</div>
+          <div class="client-meta">Taipei Fringe Festival · 2025</div>
+        </div>
+        <div class="client">
+          <div class="client-num">02 ─ Theatre Company</div>
+          <div class="client-name">春河劇團</div>
+          <div class="client-meta">Production · Rehearsal · Props</div>
+        </div>
+        <div class="client">
+          <div class="client-num">03 ─ Production Units</div>
+          <div class="client-name">劇場製作單位</div>
+          <div class="client-meta">Stage Operations · Coordination</div>
+        </div>
+        <div class="client">
+          <div class="client-num">04 ─ Event Partners</div>
+          <div class="client-name">活動合作單位</div>
+          <div class="client-meta">Workshops · On-site · Production</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 05 TESTIMONIALS =========== -->
+<section id="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num reveal">§ 05 / Testimonials</div>
+        <h2 class="section-title reveal" style="transition-delay:.1s">推薦<span class="accent">見證</span></h2>
+      </div>
+      <div class="section-meta reveal" style="transition-delay:.2s">3 Voices<br>Common thread —<br>「和她合作很安心」</div>
+    </div>
+  </div>
+
+  <div class="testimonials stagger">
+    <article class="tm">
+      <div class="tm-idx">01 / 03</div>
+      <div class="tm-quote-mark">"</div>
+      <p class="tm-quote">從前期提案到演出當天，所有細節她都掌握得非常清楚。排練現場的問題幾乎還沒說完，她就已經在想解法了。跟她合作的感覺就是——這件事不用擔心了。</p>
+      <div class="tm-attr">
+        <div class="tm-name">某導演</div>
+        <div class="tm-role">2025 臺北藝穗節《解夢時間》</div>
+      </div>
+    </article>
+
+    <article class="tm">
+      <div class="tm-idx">02 / 03</div>
+      <div class="tm-quote-mark">"</div>
+      <p class="tm-quote">現場執行的臨時狀況比我預期的多，但她完全沒有慌。每一個問題她都很快處理好，而且處理完還會跟你說發生了什麼、她怎麼解的。這種透明度讓我非常放心。</p>
+      <div class="tm-attr">
+        <div class="tm-name">某活動主辦人</div>
+        <div class="tm-role">《手作女子聚會》</div>
+      </div>
+    </article>
+
+    <article class="tm">
+      <div class="tm-idx">03 / 03</div>
+      <div class="tm-quote-mark">"</div>
+      <p class="tm-quote">她的照片不只是拍得好看，是真的有在捕捉情緒和氛圍。最難得的是她懂你要什麼，不用一直解釋。</p>
+      <div class="tm-attr">
+        <div class="tm-name">某客戶</div>
+        <div class="tm-role">個人寫真</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- =========== 06 ABOUT =========== -->
+<section id="about" class="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-num reveal">§ 06 / About</div>
+        <h2 class="section-title reveal" style="transition-delay:.1s">關於我</h2>
+      </div>
+      <div class="section-meta reveal" style="transition-delay:.2s">Bio / Long-form<br>三段 · 三個次標</div>
+    </div>
+
+    <h3 class="about-bigtitle reveal">簡介欄位永遠不夠用，<br>所以我做了<span class="accent">這個網站</span>。</h3>
+
+    <div class="about-grid">
+      <aside class="about-aside reveal">
+        <div>
+          <div class="k">Based in</div>
+          <div class="v">Taipei, Taiwan</div>
+        </div>
+        <div>
+          <div class="k">Working since</div>
+          <div class="v">2021 ─ Present</div>
+        </div>
+        <div>
+          <div class="k">Languages</div>
+          <div class="v">中文 (母語) / English (Working)</div>
+        </div>
+        <div>
+          <div class="k">Currently</div>
+          <div class="v"><span class="accent">●</span> Open to projects · Q2 2026</div>
+        </div>
+        <div class="about-portrait">
+          <div class="lab">[ PORTRAIT / OFF-DUTY ]</div>
+        </div>
+      </aside>
+
+      <div class="about-body reveal" style="transition-delay:.15s">
+        <p>我的工作不容易用一個職稱說清楚——有時候是製作人，有時候是攝影師，有時候是坐在角落默默把所有事情搞定的那個人。反正欄位永遠不夠填。</p>
+
+        <h4 class="about-subtitle">做事的人，<br>也<span class="accent">說故事</span>的人。</h4>
+        <p>劇場給了我一個很奇怪的工作觀：演出結束的那一刻，觀眾只看到舞台上的光——而我的工作，是讓那道光不出任何差錯地亮起來。幕後的事越複雜，台前越要看起來毫不費力。這件事我學得很深，用在每個合作裡都還管用。</p>
+
+        <h4 class="about-subtitle">策略、創意、<br>以及<span class="accent">把事情做完</span>的能力。</h4>
+        <p>我在劇場長大，在企劃裡找到秩序，用攝影記錄值得被看見的瞬間。跨領域不是我的弱點，是我能同時看見全局與細節的原因。你需要一個能從零想到有、從有做到好的合作夥伴——<span class="accent">我在這裡</span>。</p>
+
+        <div class="skills">
+          <span class="skill">劇場製作</span>
+          <span class="skill">視覺設計</span>
+          <span class="skill">活動企劃</span>
+          <span class="skill">攝影</span>
+          <span class="skill">世界觀設計</span>
+          <span class="skill">小說撰寫</span>
+          <span class="skill">文案企劃</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========== 07 CONTACT =========== -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="section-head" style="border-bottom: none; padding-bottom: 24px; font-size: 100px">
+      <div>
+        <div class="section-num reveal">§ 07 / Contact</div>
+      </div>
+      <div class="section-meta reveal" style="transition-delay:.2s">Reply within 48h<br>Mon — Fri / TPE</div>
+    </div>
+
+    <h2 class="contact-head reveal" style="line-height: 1; font-size: 130px">
+      <span class="en" style="font-size: 80px">Let's Talk</span>
+      讓我們一起<br><span class="accent">聊聊</span>。
+    </h2>
+
+    <div class="contact-grid">
+      <div class="contact-aside reveal">
+        <div class="contact-block">
+          <div class="k">Email</div>
+          <div class="v"><a href="mailto:hello@creator.tw">hello@creator.tw</a></div>
+        </div>
+        <div class="contact-block">
+          <div class="k">Studio</div>
+          <div class="v">Taipei, Taiwan</div>
+        </div>
+        <div class="contact-block">
+          <div class="k">Follow</div>
+          <div class="socials">
+            <a href="#"><span>01 / Visual diary</span>Instagram <span>→</span></a>
+            <a href="#"><span>02 / Portfolio</span>Behance <span>→</span></a>
+            <a href="mailto:hello@creator.tw"><span>03 / Direct</span>Email <span>→</span></a>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" style="transition-delay:.15s" id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label>姓名 / Name <span class="req">*</span></label>
+            <input type="text" name="name" placeholder="您的名字" required>
+          </div>
+          <div class="field">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" name="email" placeholder="you@email.com" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>合作需求 / Project Brief <span class="req">*</span></label>
+          <textarea rows="3" name="brief" placeholder="簡述合作的方向、範圍與背景──越具體越好" required></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="field">
+            <label>預算範圍 / Budget</label>
+            <select name="budget">
+              <option value="">請選擇 ↘</option>
+              <option>NT$ 30,000 以下</option>
+              <option>NT$ 30,000 — 80,000</option>
+              <option>NT$ 80,000 — 200,000</option>
+              <option>NT$ 200,000 以上</option>
+              <option>尚未確定 / 想先聊聊</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>預計時程 / Timeline</label>
+            <select name="timeline">
+              <option value="">請選擇 ↘</option>
+              <option>2 週內 — 緊急</option>
+              <option>1 個月內</option>
+              <option>1 — 3 個月</option>
+              <option>3 個月以上</option>
+              <option>長期合作</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="submit-row">
+          <button class="btn-submit" type="submit">送出 <span style="font-size:24px;line-height:1">→</span></button>
+          <div class="submit-note">// 我會在 48 小時內回覆</div>
+        </div>
+      </form>
+    </div>
+
+    <footer>
+      <div><span class="accent-dot"></span>© 2026 創作者姓名 · All Rights Reserved</div>
+      <div>Editorial Modernism · Built in Taipei</div>
+      <div>v1.0 · Last updated 2026.04</div>
+    </footer>
+  </div>
+</section>
+
+<div class="toast" id="toast">✓ 訊息已送出 · 期待與你聊聊</div>
+
+<script>
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+  document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
+
+  // Smooth-scroll for nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id.length > 1){
+        const t = document.querySelector(id);
+        if (t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
+      }
+    });
+  });
+
+  // Form
+  const form = document.getElementById('contactForm');
+  const toast = document.getElementById('toast');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const brief = form.brief.value.trim();
+    if (!name || !email || !brief){
+      toast.textContent = '⚠ 請填寫必要欄位';
+      toast.style.background = '#fff';
+    } else {
+      toast.textContent = '✓ 訊息已送出 · 我會在 48 小時內回覆';
+      toast.style.background = 'var(--accent)';
+      form.reset();
+    }
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3200);
+  });
+</script>
+</body>
+</html>
