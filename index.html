@@ -424,8 +424,8 @@
   footer .accent-dot{display:inline-block;width:6px;height:6px;background:var(--accent);border-radius:50%;margin-right:10px;vertical-align:middle}
 
   /* toast */
-  .toast{position:fixed;left:50%;bottom:48px;transform:translateX(-50%) translateY(120%);background:var(--accent);color:#000;font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;padding:18px 28px;z-index:80;transition:transform .4s ease;max-width:calc(100vw - 32px);text-align:center}
-  .toast.show{transform:translateX(-50%) translateY(0)}
+  .toast{position:fixed;left:50%;bottom:48px;transform:translateX(-50%) translateY(calc(100% + 64px));opacity:0;pointer-events:none;background:var(--accent);color:#000;font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;padding:18px 28px;z-index:80;transition:transform .4s ease,opacity .25s ease;max-width:calc(100vw - 32px);text-align:center}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
   @media (max-width:480px){.toast{font-size:10px;padding:14px 18px;letter-spacing:.18em;bottom:24px}}
 
   /* utility */
@@ -880,7 +880,7 @@
       <div class="contact-aside reveal">
         <div class="contact-block">
           <div class="k">Email</div>
-          <div class="v"><a href="/cdn-cgi/l/email-protection#f29a979e9e9db291809793869d80dc8685"><span class="__cf_email__" data-cfemail="4f272a2323200f2c3d2a2e3b203d613b38">[email&#160;protected]</span></a></div>
+          <div class="v"><a href="/cdn-cgi/l/email-protection#48202d242427082b3a2d293c273a663c3f"><span class="__cf_email__" data-cfemail="8fe7eae3e3e0cfecfdeaeefbe0fda1fbf8">[email&#160;protected]</span></a></div>
         </div>
         <div class="contact-block">
           <div class="k">Studio</div>
@@ -891,7 +891,7 @@
           <div class="socials">
             <a href="#"><span>01 / Visual diary</span>Instagram <span>→</span></a>
             <a href="#"><span>02 / Portfolio</span>Behance <span>→</span></a>
-            <a href="/cdn-cgi/l/email-protection#81e9e4ededeec1e2f3e4e0f5eef3aff5f6"><span>03 / Direct</span>Email <span>→</span></a>
+            <a href="/cdn-cgi/l/email-protection#553d3039393a1536273034213a277b2122"><span>03 / Direct</span>Email <span>→</span></a>
           </div>
         </div>
       </div>
