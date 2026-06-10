@@ -1,0 +1,189 @@
+{
+  "projects": [
+    {
+      "id": "p001",
+      "title": "《夏日進行中》情緒敘事攝影集",
+      "slug": "summer-in-progress",
+      "year": 2025,
+      "category": "Lens",
+      "tags": ["攝影集", "視覺風格", "情緒敘事", "平面輸出"],
+      "thumbnail": null,
+      "media": [],
+      "evidence": {
+        "role": "攝影／視覺敘事",
+        "constraint": "維持系列風格一致",
+        "impact": "完成攝影集與平面輸出"
+      },
+      "narrative": {
+        "hook": "[ 待填入：一句話亮點，動詞＋受益對象＋結果，30 字以內 ]",
+        "situation": "[ 待填入：專案背景脈絡，說明為什麼要做這件事 ]",
+        "task": "[ 待填入：核心目標，當時需要達成什麼？]",
+        "action": "[ 待填入：我主導了⋯⋯（上限 150 字，第一人稱主動句）]",
+        "result": "[ 待填入：量化數字、具名評價或後續影響，上限 80 字 ]"
+      },
+      "metadata": {
+        "is_featured": true,
+        "featured_score": {
+          "commercial": 2,
+          "skill_range": 3,
+          "narrative": 2,
+          "total": 7
+        },
+        "tools": [],
+        "capabilities": ["Lens", "Writer"],
+        "relevant_roles": ["攝影師", "視覺設計師"],
+        "target_roles": [],
+        "keywords": ["攝影", "視覺敘事", "平面輸出"],
+        "show_in_archive_only": false
+      }
+    },
+    {
+      "id": "p002",
+      "title": "《手作女子聚會》活動策劃與執行",
+      "slug": "handcraft-gathering",
+      "year": 2025,
+      "category": "Architect",
+      "tags": ["活動策劃", "現場執行", "流程設計"],
+      "thumbnail": null,
+      "media": [],
+      "evidence": {
+        "role": "活動策劃／執行統籌",
+        "constraint": "整合流程與現場協作",
+        "impact": "完成聚會策劃與落地執行"
+      },
+      "narrative": {
+        "hook": "[ 待填入：一句話亮點，動詞＋受益對象＋結果，30 字以內 ]",
+        "situation": "[ 待填入：專案背景脈絡 ]",
+        "task": "[ 待填入：核心目標 ]",
+        "action": "[ 待填入：我主導了⋯⋯ ]",
+        "result": "[ 待填入：量化數字、具名評價或後續影響 ]"
+      },
+      "metadata": {
+        "is_featured": true,
+        "featured_score": {
+          "commercial": 3,
+          "skill_range": 2,
+          "narrative": 3,
+          "total": 8
+        },
+        "tools": [],
+        "capabilities": ["Architect", "Maker"],
+        "relevant_roles": ["活動製作人", "執行統籌"],
+        "target_roles": [],
+        "keywords": ["活動策劃", "現場執行", "跨部門協調"],
+        "show_in_archive_only": false
+      }
+    },
+    {
+      "id": "p003",
+      "title": "榮耀基金會實習 — 臺灣音樂劇統計專案統籌",
+      "slug": "glory-foundation-internship",
+      "year": 2024,
+      "category": "Architect",
+      "tags": ["專案統籌", "資料整理", "原型製作", "研究調查"],
+      "thumbnail": null,
+      "media": [],
+      "evidence": {
+        "role": "研究／專案統籌",
+        "constraint": "整合臺灣音樂劇資料",
+        "impact": "完成統計專案與原型製作"
+      },
+      "narrative": {
+        "hook": "[ 待填入：一句話亮點 ]",
+        "situation": "[ 待填入：專案背景脈絡 ]",
+        "task": "[ 待填入：核心目標 ]",
+        "action": "[ 待填入：我主導了⋯⋯ ]",
+        "result": "[ 待填入：量化數字、具名評價或後續影響 ]"
+      },
+      "metadata": {
+        "is_featured": true,
+        "featured_score": {
+          "commercial": 2,
+          "skill_range": 3,
+          "narrative": 2,
+          "total": 7
+        },
+        "tools": [],
+        "capabilities": ["Architect", "Writer"],
+        "relevant_roles": ["研究統籌", "資料分析師"],
+        "target_roles": [],
+        "keywords": ["專案管理", "資料整理", "研究調查"],
+        "show_in_archive_only": false
+      }
+    },
+    {
+      "id": "p004",
+      "title": "《詭哭郎嚎》排練助理 ＆ 小道具",
+      "slug": "ghost-crying",
+      "year": 2024,
+      "category": "Architect",
+      "tags": ["劇場製作", "排練助理", "道具管理"],
+      "thumbnail": null,
+      "media": [],
+      "evidence": {
+        "role": "排練助理／道具管理",
+        "constraint": "配合排練節奏即時支援",
+        "impact": "支援製作與道具執行"
+      },
+      "narrative": {
+        "hook": "[ 待填入：一句話亮點 ]",
+        "situation": "[ 待填入：專案背景脈絡 ]",
+        "task": "[ 待填入：核心目標 ]",
+        "action": "[ 待填入：我主導了⋯⋯ ]",
+        "result": "[ 待填入：量化數字、具名評價或後續影響 ]"
+      },
+      "metadata": {
+        "is_featured": false,
+        "featured_score": {
+          "commercial": 2,
+          "skill_range": 1,
+          "narrative": 1,
+          "total": 4
+        },
+        "tools": [],
+        "capabilities": ["Architect", "Maker"],
+        "relevant_roles": ["劇場製作助理"],
+        "target_roles": [],
+        "keywords": ["劇場製作", "排練協調"],
+        "show_in_archive_only": false
+      }
+    },
+    {
+      "id": "p005",
+      "title": "《老闆，來碗陽春麵！》排練助理 ＆ 小道具",
+      "slug": "plain-noodles",
+      "year": 2024,
+      "category": "Architect",
+      "tags": ["劇場製作", "排練助理", "道具管理"],
+      "thumbnail": null,
+      "media": [],
+      "evidence": {
+        "role": "排練助理／道具管理",
+        "constraint": "同步排練與道具需求",
+        "impact": "支援製作與現場執行"
+      },
+      "narrative": {
+        "hook": "[ 待填入：一句話亮點 ]",
+        "situation": "[ 待填入：專案背景脈絡 ]",
+        "task": "[ 待填入：核心目標 ]",
+        "action": "[ 待填入：我主導了⋯⋯ ]",
+        "result": "[ 待填入：量化數字、具名評價或後續影響 ]"
+      },
+      "metadata": {
+        "is_featured": false,
+        "featured_score": {
+          "commercial": 2,
+          "skill_range": 1,
+          "narrative": 1,
+          "total": 4
+        },
+        "tools": [],
+        "capabilities": ["Architect", "Maker"],
+        "relevant_roles": ["劇場製作助理"],
+        "target_roles": [],
+        "keywords": ["劇場製作", "排練協調"],
+        "show_in_archive_only": false
+      }
+    }
+  ]
+}

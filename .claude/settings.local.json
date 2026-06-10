@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ' *)",
+      "Bash(find \"C:/Users/vince/AppData/Local/npm-cache\" -name \"package.json\" -path \"*/playwright/package.json\" 2>/dev/null | head -3)",
+      "Read(//c/Users/vince/AppData/Local/npm-cache/**)"
+    ]
+  }
+}

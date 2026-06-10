@@ -1,0 +1,5 @@
+#!/bin/sh
+
+node scripts/update-dev-log.mjs "$1"
+exit $?
+
