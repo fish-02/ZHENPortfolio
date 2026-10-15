@@ -95,6 +95,22 @@ const changes = getFileChanges();
 if (changes.length === 0) process.exit(0);
 
 const stats = getLineStats();
+const totals = [...stats.values()].reduce(
+  (summary, { added, deleted }) => {
+    if (added === "-" || deleted === "-") {
+      summary.binaryFiles += 1;
+      return summary;
+    }
+
+    summary.added += Number(added);
+    summary.deleted += Number(deleted);
+    return summary;
+  },
+  { added: 0, deleted: 0, binaryFiles: 0 },
+);
+const totalChangedLines = totals.added + totals.deleted;
+const binaryNote =
+  totals.binaryFiles > 0 ? `，另有 ${totals.binaryFiles} 個二進位檔案` : "";
 const fileLines = changes.map(({ status, path }) => {
   const lineStat = stats.get(path);
   const detail =
@@ -110,6 +126,8 @@ const entry = [
   "",
   `**更動摘要 Change summary：** ${getCommitMessage()}`,
   "",
+  `**更動梗概 Change overview：** 共 ${changes.length} 個檔案，新增 ${totals.added} 行、刪除 ${totals.deleted} 行，總變動 ${totalChangedLines} 行${binaryNote}。`,
+  "",
   "**更動檔案 Changed files：**",
   ...fileLines,
   "",
@@ -124,4 +142,3 @@ if (!current.includes(marker)) {
 
 writeFileSync(logFile, current.replace(marker, `${marker}\n\n${entry}`), "utf8");
 git(["add", "--", logFile]);
-
